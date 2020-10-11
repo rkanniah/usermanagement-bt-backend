@@ -29,6 +29,9 @@ public class UserControllerTestMock {
 
 	private static final Logger LOGGER = Logger.getLogger(UserControllerTestMock.class.getName());
 
+	private static final String MEDIA_CHARSET = "application/json;charset=utf-8";
+	private static final String CONTENT_TYPE = "Content-Type";
+
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -40,7 +43,7 @@ public class UserControllerTestMock {
 
 	@Test
 	public void getAllUsers() throws Exception {
-		
+
 		Mockito.when(userRepository.findAll()).thenReturn(new ArrayList<User>());
 
 		Mockito.when(userService.getAllUsers().get()).thenReturn(new ArrayList<User>());
@@ -59,7 +62,7 @@ public class UserControllerTestMock {
 		user.setEmail("sam@opec.com");
 
 		HttpHeaders requestHeaders = new HttpHeaders();
-		requestHeaders.add("Content-Type", "application/json;charset=utf-8");
+		requestHeaders.add(CONTENT_TYPE, MEDIA_CHARSET);
 
 		Mockito.when(userService.findUser("sam@opec.com").get()).thenReturn(user);
 
@@ -83,7 +86,7 @@ public class UserControllerTestMock {
 		roles.add("superuser");
 
 		HttpHeaders requestHeaders = new HttpHeaders();
-		requestHeaders.add("Content-Type", "application/json;charset=utf-8");
+		requestHeaders.add(CONTENT_TYPE, MEDIA_CHARSET);
 
 		Mockito.when(userService.addUser(user).get()).thenReturn(user);
 
@@ -105,7 +108,7 @@ public class UserControllerTestMock {
 		roles.add("operations");
 
 		HttpHeaders requestHeaders = new HttpHeaders();
-		requestHeaders.add("Content-Type", "application/json;charset=utf-8");
+		requestHeaders.add(CONTENT_TYPE, MEDIA_CHARSET);
 
 		Mockito.when(userRepository.findByEmail("dagon@opec.com")).thenReturn(user);
 
@@ -128,7 +131,7 @@ public class UserControllerTestMock {
 		roles.add("operations");
 
 		HttpHeaders requestHeaders = new HttpHeaders();
-		requestHeaders.add("Content-Type", "application/json;charset=utf-8");
+		requestHeaders.add(CONTENT_TYPE, MEDIA_CHARSET);
 
 		this.mockMvc.perform(MockMvcRequestBuilders.delete("/delete").headers(requestHeaders).content(
 				"{\"id\":1,\"email\":\"dagon@opec.com\",\"name\":\"Dagon\",\"role\":[\"user\",\"operations\"]}"))
